@@ -140,7 +140,7 @@ fi
 
 # For container usage, where we want to specify i686 arch
 # on a x86_64 host by setting ARCH=i686.
-: "${ARCH:=$(uname -m)}"
+: "${ARCH:=aarch64}"
 
 if [[ "$ARCH" == "x86_64" ]] || [[ "$ARCH" == "aarch64" ]]; then
   SYSTEM_LIB_SUFFIX='64'
@@ -153,11 +153,11 @@ fi
 # For container usage, when we are emulating armv7l via linux32, where uname -m will report armv8l.
 # Additionally, if the architecture is aarch64, set it to armv7l, as we treat as if it was armv7l.
 # When we have proper support for aarch64, remove this.
-if [[ "${ARCH}" = "armv8l" ]] || [[ "${ARCH}" = "aarch64" ]]; then
-  echo_info "Setting ARCH to armv7l."
-  ARCH='armv7l'
-  PREFIX_CMD="linux32 env LD_LIBRARY_PATH=${CREW_PREFIX}/lib${CREW_LIB_SUFFIX}:/usr/lib${CREW_LIB_SUFFIX}:/lib${CREW_LIB_SUFFIX}"
-fi
+#if [[ "${ARCH}" = "armv8l" ]] || [[ "${ARCH}" = "aarch64" ]]; then
+  #echo_info "Setting ARCH to armv7l."
+  #ARCH='armv7l'
+  #PREFIX_CMD="linux32 env LD_LIBRARY_PATH=${CREW_PREFIX}/lib${CREW_LIB_SUFFIX}:/usr/lib${CREW_LIB_SUFFIX}:/lib${CREW_LIB_SUFFIX}"
+#fi
 
 if [[ "${ARCH}" = "x86_64" ]] && [[ -f "/lib/ld-2.23.so" ]]; then
   echo_info "Setting ARCH to i686."
